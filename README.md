@@ -74,7 +74,7 @@ predictive_maintenance_rl/
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/predictive_maintenance_rl.git
+git clone https://github.com/amriththejas4000/predictive_maintenance_rl.git
 cd predictive_maintenance_rl
 
 # Install dependencies
