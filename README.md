@@ -174,6 +174,7 @@ The RL agent successfully learns predictive maintenance behavior through trial a
 
 # Project Structure
 
+```text
 predictive_maintenance_rl/
 │
 ├── configs/
@@ -206,8 +207,7 @@ predictive_maintenance_rl/
 ├── train.py
 ├── requirements.txt
 └── README.md
-
----
+```
 
 # Experiment Tracking
 
