@@ -336,6 +336,18 @@ Retraining would be triggered if model performance drops significantly.
 - Real-time monitoring dashboard
 
 ---
+# MLflow Experiment Tracking
+
+MLflow is used for experiment tracking and model management.
+
+Each DQN training run is automatically logged as a separate MLflow run.
+
+Tracked information includes:
+- run_id
+- hyperparameters
+- training duration
+- rewards
+- model artifacts
 
 # Conclusion
 
