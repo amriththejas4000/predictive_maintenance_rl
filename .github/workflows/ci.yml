@@ -1,0 +1,49 @@
+name: CI Pipeline - Predictive Maintenance RL
+
+on:
+  push:
+    branches: [ main, experiment/dqn-tuning ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        pip install stable-baselines3
+        pip install gymnasium
+        pip install numpy
+        pip install matplotlib
+        pip install pyyaml
+        pip install mlflow
+
+    - name: Verify environment imports
+      run: |
+        python -c "from sim.factory_env import FactoryMachineEnv; print('✅ Environment import OK')"
+
+    - name: Verify config loading
+      run: |
+        python -c "import yaml; cfg=yaml.safe_load(open('configs/dqn_v1.yaml')); print('✅ Config loaded:', cfg['experiment']['run_id'])"
+
+    - name: Run smoke test
+      run: |
+        python -c "
+        from sim.factory_env import FactoryMachineEnv
+        env = FactoryMachineEnv()
+        obs, _ = env.reset()
+        obs, reward, done, truncated, info = env.step(0)
+        print('✅ Environment smoke test passed')
+        print('✅ Observation shape:', obs.shape)
+        print('✅ Reward:', reward)
+        "
