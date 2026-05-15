@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/amrithtejas/Downloads/predictive_maintenance_rl/mlruns/971225372393958134/398f6592ef1e45aea83137f7b2f8ad96/artifacts
+end_time: 1778874138314
+entry_point_name: ''
+experiment_id: '971225372393958134'
+lifecycle_stage: active
+run_id: 398f6592ef1e45aea83137f7b2f8ad96
+run_name: run2
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1778874113772
+status: 3
+tags: []
+user_id: amrithtejas

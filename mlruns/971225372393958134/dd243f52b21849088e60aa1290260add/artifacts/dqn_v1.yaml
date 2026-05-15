@@ -1,0 +1,35 @@
+# DQN Configuration - Experiment 1
+# Run: python train.py --config configs/dqn_v1.yaml
+
+experiment:
+  run_id: run1
+  description: "Initial DQN training - Predictive Maintenance"
+
+environment:
+  max_steps: 365
+
+model:
+  algorithm: DQN
+  policy: MlpPolicy
+  learning_rate: 0.001
+  buffer_size: 50000
+  learning_starts: 1000
+  batch_size: 64
+  gamma: 0.95
+  train_freq: 4
+  target_update_interval: 500
+  net_arch: [128, 128]
+
+exploration:
+  exploration_fraction: 0.3
+  exploration_final_eps: 0.05
+
+training:
+  total_timesteps: 100000
+  eval_freq: 5000
+  n_eval_episodes: 10
+
+logging:
+  log_path: ./logs/
+  model_save_path: ./models/
+  results_path: ./experiments/results.csv

@@ -2,3 +2,6 @@ run_id,episodes,avg_reward,avg_breakdowns,maintenance_count,learning_rate,epsilo
 run1,100000,231.76,—,—,0.001,0.05,Initial DQN training - Predictive Maintenance
 run2,100000,178.04,—,—,0.0005,0.1,Lower learning rate experiment - slower but stable learning
 run3,100000,204.34,—,—,0.002,0.05,Final tuned config - optimal parameters
+run1,100000,230.27,—,—,0.001,0.05,Initial DQN training - Predictive Maintenance
+run2,100000,178.56,—,—,0.0005,0.1,Lower learning rate experiment - slower but stable learning
+run3,100000,208.47,—,—,0.002,0.05,Final tuned config - optimal parameters
