@@ -1,5 +1,4 @@
 run_id,episodes,avg_reward,avg_breakdowns,maintenance_count,learning_rate,epsilon,notes
-run1,100000,351,0.05,14.8,0.001,0.05,initial training
-run2,100000,348,0.06,15.2,0.001,0.05,tuned parameters
-run3,100000,350,0.05,15.0,0.001,0.05,final tuningrun1,100000,228.14,—,—,0.001,0.05,Initial DQN training - Predictive Maintenance
-run1,100000,225.42,—,—,0.001,0.05,Initial DQN training - Predictive Maintenance
+run1,100000,231.76,—,—,0.001,0.05,Initial DQN training - Predictive Maintenance
+run2,100000,178.04,—,—,0.0005,0.1,Lower learning rate experiment - slower but stable learning
+run3,100000,204.34,—,—,0.002,0.05,Final tuned config - optimal parameters

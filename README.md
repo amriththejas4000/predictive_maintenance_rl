@@ -201,9 +201,9 @@ If deployed in a real factory, we would monitor average machine health across al
 
 | Metric | Random Agent | Rule-Based Agent | DQN (Ours) |
 |--------|-------------|-----------------|------------|
-| Avg Reward / Year | ~50 | ~280 | ~350 |
-| Avg Breakdowns / Year | ~8 | ~1.2 | ~0.05 |
-| Avg Maintenances / Year | ~120 | ~14 | ~15 |
+| Avg Reward / Year | -264 | +349 | +348.5 |
+| Avg Breakdowns / Year | 119 | 0.00 | 0.00 |
+| Avg Maintenances / Year | 121.8 | 22.9 | 21.1 |
 
 DQN outperforms both baselines — achieving the highest reward with the fewest breakdowns while keeping maintenance frequency efficient.
 
