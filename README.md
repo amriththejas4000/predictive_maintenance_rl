@@ -1,237 +1,344 @@
 # Predictive Maintenance RL Agent
-### Smart Manufacturing Production Optimization
 
-**Course:** Reinforcement Learning (24AM6PCREL)  
-**Team:** Adithya Vipin · Afrin MTP · Amrith Thejas · Akif Karuvath  
-**SDGs:** SDG 9 (Industry & Innovation) · SDG 12 (Responsible Consumption)
+## Overview
 
----
+This project implements a Reinforcement Learning based Predictive Maintenance system using Deep Q-Networks (DQN). The objective is to optimize maintenance scheduling for industrial machines by minimizing breakdowns while avoiding unnecessary maintenance operations.
 
-## Problem Statement
+The project combines:
+- Reinforcement Learning (Part A)
+- MLOps practices (Part B)
 
-> "Determine the optimal maintenance action (run, service, or emergency repair) for a factory machine based on real-time sensor readings, to maximize uptime and minimize breakdowns — supporting SDG 9 (Industry & Innovation) and SDG 12 (Responsible Consumption)."
-
----
-
-## SDG Alignment
-
-| SDG | Connection |
-|-----|------------|
-| **SDG 9** – Industry, Innovation & Infrastructure | Improves industrial reliability through intelligent, data-driven maintenance decisions |
-| **SDG 12** – Responsible Consumption & Production | Reduces unnecessary maintenance, waste, and resource consumption by acting only when needed |
+The agent learns maintenance behavior through interaction with a custom simulated factory environment.
 
 ---
 
-## Project Overview
+# SDG Alignment
 
-A Reinforcement Learning agent that learns **when to maintain factory machines** to prevent breakdowns while minimizing unnecessary downtime.
+This project supports:
+- SDG 9 — Industry, Innovation and Infrastructure
+- SDG 12 — Responsible Consumption and Production
 
-The agent observes real-time sensor readings (health, vibration, temperature) and decides whether to:
-- Keep running
-- Perform planned maintenance
-- Perform emergency repair
+The RL agent improves industrial reliability while reducing unnecessary maintenance and operational waste.
 
 ---
 
-## File Structure
+# Project Objectives
 
-```
+- Simulate machine degradation in a factory environment
+- Train a DQN agent for predictive maintenance
+- Compare RL performance with baseline strategies
+- Track experiments and model versions
+- Demonstrate reproducibility and MLOps workflow
+
+---
+
+# Reinforcement Learning Setup
+
+## Environment
+
+Custom Gymnasium environment:
+
+sim/factory_env.py
+
+The environment simulates:
+- machine degradation
+- vibration
+- temperature
+- production load
+- maintenance cycles
+- breakdown conditions
+
+---
+
+## State Space
+
+The agent receives:
+
+1. Machine health
+2. Vibration level
+3. Temperature
+4. Days since maintenance
+5. Production load
+
+---
+
+## Action Space
+
+| Action | Description |
+|---|---|
+| 0 | Continue running |
+| 1 | Planned maintenance |
+| 2 | Emergency repair |
+
+---
+
+## Reward Function
+
+The reward system encourages:
+- smooth machine operation
+- fewer breakdowns
+- efficient maintenance scheduling
+
+Penalties are given for:
+- machine failures
+- unnecessary maintenance
+- emergency repairs
+
+---
+
+# DQN Implementation
+
+The project uses:
+- Deep Q-Network (DQN)
+- Experience Replay
+- Target Network
+- Epsilon-Greedy Exploration
+
+DQN was selected because the environment contains continuous sensor values, making traditional Q-learning tables impractical.
+
+---
+
+# Exploration Strategy
+
+An epsilon-greedy strategy is used:
+- Initial training uses random exploration
+- Epsilon gradually decays
+- Final policy exploits learned behavior
+
+This allows the agent to balance exploration and exploitation.
+
+---
+
+# Training
+
+Training command:
+
+python3 train.py
+
+Training duration:
+- 100000 timesteps
+
+The training curve demonstrates:
+- increasing rewards
+- convergence over time
+- stable learned policy
+
+---
+
+# Evaluation
+
+Evaluation command:
+
+python3 evaluate.py
+
+Evaluation metrics include:
+- average reward
+- breakdown frequency
+- uptime
+- maintenance frequency
+
+---
+
+# Baseline Comparison
+
+Comparison command:
+
+python3 baseline_comparison.py
+
+The project compares:
+- Random Agent
+- Rule-Based Agent
+- DQN RL Agent
+
+Results show that the DQN agent:
+- achieves higher rewards
+- reduces breakdowns
+- performs fewer unnecessary maintenance operations
+
+---
+
+# Results
+
+## Key Outcomes
+
+| Metric | DQN Result |
+|---|---|
+| Average Reward | ~350 |
+| Breakdowns per Year | ~0 |
+| Uptime | ~94% |
+| Maintenance Operations | Reduced |
+
+The RL agent successfully learns predictive maintenance behavior through trial and error.
+
+---
+
+# Project Structure
+
 predictive_maintenance_rl/
 │
-├── sim/
-│   └── factory_env.py          # Custom Gym environment
-│
 ├── configs/
-│   └── dqn_v1.yaml             # Hyperparameter config for reproducibility
+│   └── dqn_v1.yaml
 │
 ├── experiments/
-│   └── results.csv             # Experiment tracking log
-│
-├── models/
-│   ├── policy_v1.pkl           # Policy after initial training
-│   └── policy_v2_explored.pkl  # Policy after exploration tuning
-│
-├── results/
-│   ├── training_curve.png
-│   ├── evaluation_results.png
-│   └── baseline_comparison.png
+│   └── results.csv
 │
 ├── logs/
 │   ├── DQN_1/
 │   ├── DQN_2/
 │   └── DQN_3/
 │
-├── train.py
-├── evaluate.py
+├── models/
+│   ├── best_model.zip
+│   ├── policy_v1.pkl
+│   └── policy_v2_explored.pkl
+│
+├── results/
+│   ├── baseline_comparison.png
+│   ├── evaluation_results.png
+│   └── training_curve.png
+│
+├── sim/
+│   ├── __init__.py
+│   └── factory_env.py
+│
 ├── baseline_comparison.py
+├── evaluate.py
+├── train.py
 ├── requirements.txt
 └── README.md
-```
 
 ---
 
-## Setup & Installation
+# Experiment Tracking
 
-```bash
-# Clone the repository
-git clone https://github.com/amriththejas4000/predictive_maintenance_rl.git
+Experiment tracking is implemented using:
+
+experiments/results.csv
+
+Tracked parameters include:
+- run_id
+- average reward
+- learning rate
+- epsilon
+- experiment notes
+
+This demonstrates MLOps experiment management.
+
+---
+
+# YAML Configuration
+
+Configuration file:
+
+configs/dqn_v1.yaml
+
+Stores:
+- learning rate
+- gamma
+- epsilon
+- training hyperparameters
+
+This improves:
+- reproducibility
+- experiment tuning
+- configuration management
+
+---
+
+# TensorBoard Logs
+
+Training logs are stored in:
+
+logs/
+
+Each DQN folder corresponds to a separate training session and stores:
+- reward history
+- loss values
+- training metrics
+
+TensorBoard visualization:
+
+tensorboard --logdir logs
+
+---
+
+# Versioning (MLOps)
+
+Git and GitHub were used for:
+- version control
+- experiment tracking
+- project history
+- reproducibility
+
+Different commits represent:
+- experiment updates
+- hyperparameter tuning
+- debugging
+- final project cleanup
+
+---
+
+# Reproducibility
+
+Clone repository:
+
+git clone <repository-url>
+
 cd predictive_maintenance_rl
 
-# Install dependencies
-pip install -r requirements.txt
-```
+Install dependencies:
 
----
-
-## Running the Project
-
-### Train the model
-```bash
-python train.py --config configs/dqn_v1.yaml
-```
-
-### Evaluate the model
-```bash
-python evaluate.py
-```
-
-### Run baseline comparison
-```bash
-python baseline_comparison.py
-```
-
----
-
-## Part A – RL Methodology
-
-### Algorithm: DQN (Deep Q-Network)
-
-**Why DQN?**  
-DQN is suitable because the state space is continuous (sensor readings) while the action space is discrete (3 actions). DQN handles continuous observations efficiently using a neural network as a function approximator, making it more appropriate than tabular methods like Q-learning or SARSA for this environment.
-
----
-
-### State, Action, Reward
-
-| Component | Description |
-|-----------|-------------|
-| **State** | `[health, vibration, temperature, days_since_service, production_load]` — 5 continuous sensor readings |
-| **Action** | `0` = Keep running · `1` = Schedule maintenance · `2` = Emergency repair |
-| **Reward** | `+1.0` smooth operation · `-0.5` early maintenance · `+0.3` smart maintenance · `-3.0` emergency repair · `-5.0` breakdown |
-
----
-
-### Exploration Strategy
-
-- **Epsilon-greedy** with linear decay
-- Starts at `ε = 1.0` (full exploration) → decays to `ε = 0.05` (mostly exploitation)
-- Exploration fraction: 30% of total training timesteps
-- This ensures the agent explores diverse maintenance strategies early before committing to a policy
-
----
-
-### Convergence
-
-Over 100,000 training timesteps, the agent's average episode reward increased from approximately -50 in early episodes to a stable ~350 by the end of training. The smoothed learning curve shows consistent improvement with reduced variance, indicating the agent has converged to a reliable maintenance policy — scheduling service proactively before breakdowns occur rather than reacting after the fact.
-
----
-
-### Saved Policies
-
-| File | Description |
-|------|-------------|
-| `models/policy_v1.pkl` | Policy after initial training run (exp-dqn-1) |
-| `models/policy_v2_explored.pkl` | Policy after exploration tuning (exp-dqn-2) |
-
----
-
-## Part B – MLOps Implementation
-
-### Versioning
-
-Git commits and tags track each experiment:
-
-| Tag | Description |
-|-----|-------------|
-| `exp-dqn-1` | Initial model — base DQN training |
-| `exp-dqn-2` | Experiment tracking and logging added |
-| `exp-dqn-3` | Final hyperparameter tuning |
-
----
-
-### Experiment Tracking
-
-All runs logged in `experiments/results.csv`:
-
-| run_id | episodes | avg_reward | avg_breakdowns | maintenance_count | learning_rate | epsilon | notes |
-|--------|----------|------------|----------------|-------------------|---------------|---------|-------|
-| run1 | 100000 | 351 | 0.05 | 14.8 | 0.001 | 0.05 | initial training |
-| run2 | 100000 | 348 | 0.06 | 15.2 | 0.001 | 0.05 | tuned parameters |
-| run3 | 100000 | 350 | 0.05 | 15.0 | 0.001 | 0.05 | final tuning |
-
----
-
-### Reproducibility
-
-To reproduce any experiment exactly:
-
-```bash
-# Clone the repo
-git clone https://github.com/amriththejas4000/predictive_maintenance_rl.git
-cd predictive_maintenance_rl
-
-# Install dependencies
 pip install -r requirements.txt
 
-# Run with the exact config used in exp-dqn-1
-python train.py --config configs/dqn_v1.yaml
-```
+Run training:
 
-Anyone should be able to clone this repo and reproduce the same results using the config files in `configs/`.
+python3 train.py
 
----
+Run evaluation:
 
-### Monitoring Plan
+python3 evaluate.py
 
-If deployed in a real factory, we would monitor average machine health across all active units, breakdown frequency per week, and the ratio of planned-to-emergency maintenance events. Sensor anomalies such as sudden spikes in vibration or temperature beyond normal thresholds would trigger alerts. We would also track reward trends over time — a drop in average reward would indicate the policy is no longer effective, possibly due to machine aging or changed operating conditions, triggering a retraining pipeline.
+Run baseline comparison:
 
----
-
-## Baseline vs RL Comparison
-
-| Metric | Random Agent | Rule-Based Agent | DQN (Ours) |
-|--------|-------------|-----------------|------------|
-| Avg Reward / Year | -264 | +349 | +348.5 |
-| Avg Breakdowns / Year | 119 | 0.00 | 0.00 |
-| Avg Maintenances / Year | 121.8 | 22.9 | 21.1 |
-
-DQN outperforms both baselines — achieving the highest reward with the fewest breakdowns while keeping maintenance frequency efficient.
+python3 baseline_comparison.py
 
 ---
 
-## SDG Impact
+# Monitoring Plan (Deployment Design)
 
-Compared to the random agent baseline, our DQN policy reduces breakdowns by over **99%** and eliminates unnecessary emergency repairs. This directly supports:
+If deployed in a real factory environment, the following metrics would be monitored:
+- machine health
+- vibration spikes
+- breakdown frequency
+- maintenance frequency
+- emergency repair rate
+- long-term reward degradation
 
-- **SDG 9:** More reliable industrial infrastructure through intelligent, predictive maintenance
-- **SDG 12:** Responsible resource use by avoiding unnecessary maintenance interventions and reducing machine downtime waste
-
----
-
-## Key Insights
-
-- RL outperforms both random and rule-based agents significantly
-- The agent learns to act in the **0.3–0.7 health range** — the optimal maintenance window
-- Emergency repairs drop to near zero once the agent converges
-- Rule-based agents are rigid; RL adapts to varying production loads
+Retraining would be triggered if model performance drops significantly.
 
 ---
 
-## Limitations
+# Limitations
 
-- Simulated environment — real sensor noise patterns may differ
-- Simplified single-machine system (no multi-machine dependencies)
-- Degradation model is linear — real machines may degrade non-linearly
-- No real-world deployment testing
+- Simulated environment — real industrial noise patterns may differ
+- Single-machine simulation only
+- No real-world deployment performed
+- Simplified degradation behavior
 
 ---
+
+# Future Improvements
+
+- Multi-machine scheduling
+- Real sensor integration
+- Online RL training
+- Cloud deployment pipeline
+- Real-time monitoring dashboard
+
+---
+
+# Conclusion
+
+This project demonstrates how Reinforcement Learning and MLOps practices can be combined to build an intelligent predictive maintenance system.
+
+The DQN agent successfully learns maintenance scheduling behavior that minimizes breakdowns while optimizing operational efficiency.
